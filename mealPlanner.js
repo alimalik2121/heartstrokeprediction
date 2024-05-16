@@ -18,7 +18,7 @@ const MealPlannerScreen = () => {
     };
 
     axios
-      .post("http://192.168.1.15:5000/mealplan", data)
+      .post("http://localhost:5000/mealplan", data)
       .then((response) => {
         setMealPlan(response.data);
       })
