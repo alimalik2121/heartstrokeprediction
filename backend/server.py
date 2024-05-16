@@ -6,7 +6,6 @@ import geminipy
 
 app = Flask(__name__)
 
-gemini = geminipy.Gemini(api_key='AIzaSyA-QwyOtAn2Ug2IXeIn7NUBd2nrwZCU19M')
 
 # Load the Flask app configuration with the database URI
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///heartstrokeprediction.db'
