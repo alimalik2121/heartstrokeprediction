@@ -30,7 +30,7 @@ const StrokePrediction = () => {
     };
   
     try {
-      const response = await axios.post('http://localhost:5000/predict', data, {
+      const response = await axios.post('http://192.168.1.15:5000/predict', data, {
         headers: {
           'Content-Type': 'application/json',
         }

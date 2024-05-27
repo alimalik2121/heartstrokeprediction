@@ -1,15 +1,15 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import StrokePrediction from './strokePrediction';
-import MealPlannerScreen from './mealPlanner'; 
+import StrokePrediction from './src/screens/strokePrediction';
+import MealsNavigator from './src/screens/meal planner screen/mealsNavigator';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
-import HomeScreen from './homeScreen';
-import UpdateProfileScreen from './updateProfile';
-import SignupScreen from './Signup';
-import LoginScreen from './Login';
+import HomeScreen from './src/screens/homeScreen';
+import UpdateProfileScreen from './src/screens/updateProfile';
+import SignupScreen from './src/screens/Signup';
+import LoginScreen from './src/screens/Login';
 
 const Tab = createBottomTabNavigator();
 
@@ -55,7 +55,7 @@ const App = () => {
         />
         <Tab.Screen
           name="Meal Planner"
-          component={MealPlannerScreen}
+          component={MealsNavigator}
           options={{
             tabBarIcon: ({ color, size }) => (
               <FontAwesome5 name="utensils" size={size} color={color} />

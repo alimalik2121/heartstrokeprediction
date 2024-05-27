@@ -2,11 +2,14 @@ from flask import Flask, request, jsonify
 import random
 from heartDisease import HeartDiseaseModel
 from model import db, UserCredentials
-import geminipy
+from geminipy import Geminipy
 
 app = Flask(__name__)
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 206e6f4 (project files)
 # Load the Flask app configuration with the database URI
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///heartstrokeprediction.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # Disable SQLAlchemy event tracking
@@ -95,5 +98,16 @@ def predict_heart_disease():
 
     return {"stroke": str(stroke)}
 
+    #Code for Medical Suggestions
+# @app.route('/medical-suggestions', methods=['POST'])
+# def get_medical_suggestions():
+#     data = request.json
+#     prediction_result = data.get('prediction')
+
+#     gemini = Geminipy(api_key='AIzaSyA-QwyOtAn2Ug2IXeIn7NUBd2nrwZCU19M')
+#     suggestions = gemini.get_medical_suggestions(prediction_result)
+
+#     return jsonify({'suggestions': suggestions})
+    
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
