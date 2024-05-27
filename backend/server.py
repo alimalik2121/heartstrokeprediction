@@ -1,15 +1,9 @@
 from flask import Flask, request, jsonify
-import random
 from heartDisease import HeartDiseaseModel
 from model import db, UserCredentials
-from geminipy import Geminipy
 
 app = Flask(__name__)
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 206e6f4 (project files)
 # Load the Flask app configuration with the database URI
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///heartstrokeprediction.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # Disable SQLAlchemy event tracking
@@ -51,27 +45,6 @@ def login_user():
     else:
         return jsonify({'error': 'Invalid credentials'}), 401
 
-# Code for meal plannner
-meal_plan = {
-    'breakfast': ['Oats', 'Poha', 'Dosa', 'Sandwich', 'Uttapam', 'Omlet', 'Boiled egg'],
-    'lunch': ['Grilled vegetables', 'Chickpea salad', 'Black Chana', 'Kabuli chana', 'Mix veg dry', 'Mix veg gravy', 'Mix veg with Paneer', 'Chicken curry'],
-    'dinner': ['Grilled vegetables', 'Chickpea salad', 'Black Chana', 'Kabuli chana', 'Mix veg dry', 'Mix veg gravy', 'Mix veg with Paneer']
-}
-
-@app.route('/mealplan', methods=['POST'])
-def generate_meal_plan():
-    data = request.json
-    age = data.get('age')
-    weight = data.get('weight')
-    restrictions = data.get('restrictions')
-    preferences = data.get('preferences')
-    
-    # Logic to generate personalized meal plan based on user input
-    breakfast = random.choice(meal_plan['breakfast'])
-    lunch = random.choice(meal_plan['lunch'])
-    dinner = random.choice(meal_plan['dinner'])
-    
-    return jsonify({'breakfast': breakfast, 'lunch': lunch, 'dinner': dinner})
 
 #Code for Stroke Prediction
 @app.route("/predict", methods=['POST'])
@@ -97,17 +70,6 @@ def predict_heart_disease():
     stroke = model.predict(df)
 
     return {"stroke": str(stroke)}
-
-    #Code for Medical Suggestions
-# @app.route('/medical-suggestions', methods=['POST'])
-# def get_medical_suggestions():
-#     data = request.json
-#     prediction_result = data.get('prediction')
-
-#     gemini = Geminipy(api_key='AIzaSyA-QwyOtAn2Ug2IXeIn7NUBd2nrwZCU19M')
-#     suggestions = gemini.get_medical_suggestions(prediction_result)
-
-#     return jsonify({'suggestions': suggestions})
     
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
