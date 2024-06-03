@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
 import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
-import HomeScreen from './homeScreen';
+import PredictionNavigator from './prediction screen/predictionNavigator';
 
 const SignupScreen = () => {
   const [username, setUsername] = useState('');
@@ -17,7 +17,7 @@ const SignupScreen = () => {
       return;
     }
     try {
-      const response = await axios.post('http://localhost:5000/signup', {
+      const response = await axios.post('http://192.168.187.147:5000/signup', {
         username: username,
         password: password,
         email: email,
@@ -25,7 +25,7 @@ const SignupScreen = () => {
       
       console.log(response.data); // Log the response from the API
       // Handle successful signup (e.g., show a success message, navigate to another screen)
-      navigation.navigate(HomeScreen);
+      navigation.navigate(PredictionNavigator);
     } catch (error) {
       console.error('Error signing up:', error);
       setError('Error signing up. Please try again.');

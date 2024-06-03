@@ -7,15 +7,11 @@ const LoginScreen = () => {
   const [error, setError] = useState('');
    
   const handleLogin = () => {
-    // Here you would implement your login logic, such as sending a request to your backend server
-    // For simplicity, I'm just checking if both fields are filled
     if (username === '' || password === '') {
       setError('Please enter both username and password');
       return;
     }
     
-    // If login is successful, you can navigate to the next screen
-    // For now, I'm just clearing the fields
     setUsername('');
     setPassword('');
     setError('');

@@ -1,15 +1,15 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import StrokePrediction from './src/screens/strokePrediction';
+import PredictionNavigator from './src/screens/prediction screen/predictionNavigator';
 import MealsNavigator from './src/screens/meal planner screen/mealsNavigator';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
-import HomeScreen from './src/screens/homeScreen';
-import UpdateProfileScreen from './src/screens/updateProfile';
 import SignupScreen from './src/screens/Signup';
 import LoginScreen from './src/screens/Login';
+import ExerciseWelcomeScreen from './src/screens/exercise screen/ExerciseWelcomeScreen';
+import HomeScreen from './src/screens/homeScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -35,18 +35,18 @@ const App = () => {
           )
         }}
         />
-        <Tab.Screen 
-          name="Home" 
-          component={HomeScreen}
-          options={{
-            tabBarIcon: ({color, size}) => (
-              <FontAwesome5 name="home" size={size} color={color} />
-            )
-          }}
+         <Tab.Screen 
+        name="Home"
+        component={HomeScreen}
+        options={{
+          tabBarIcon: ({color, size}) => (
+            <Entypo name="home" size={24} color="black" />
+          )
+        }}
         />
         <Tab.Screen
           name="Stroke Prediction"
-          component={StrokePrediction}
+          component={PredictionNavigator}
           options={{
             tabBarIcon: ({ color, size }) => (
               <FontAwesome5 name="heartbeat" size={size} color={color} />
@@ -63,8 +63,8 @@ const App = () => {
           }}
         />
         <Tab.Screen 
-          name="Update Profile" 
-          component={UpdateProfileScreen}
+          name="Exercises" 
+          component={ExerciseWelcomeScreen}
           options={{
             tabBarIcon: ({color, size}) => (
               <Entypo name="man" size={size} color={color} />

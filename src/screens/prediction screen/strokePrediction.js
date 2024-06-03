@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, Alert, StyleSheet } from 'react-native';
+import { View, Text, TextInput, Button, Alert, StyleSheet, ScrollView } from 'react-native';
 import axios from 'axios'; 
+import { useNavigation } from '@react-navigation/native';
 
 const StrokePrediction = () => {
   const [age, setAge] = useState('');
@@ -8,12 +9,13 @@ const StrokePrediction = () => {
   const [bmi, setBMI] = useState('');
   const [glucoseLevel, setGlucoseLevel] = useState('');
   const [hyperTension, setHyperTension] = useState('');
-  const [Married, setMarriageStatus] = useState('')
-  const [workType, setWorkType] = useState('')
-  const [smoking, setSmokingStatus] = useState('')
-  const [residence, setResidence] = useState('')
-  const [heartDisease, setHeartDisease] = useState('')
-  const [prediction, setPrediction] = useState('');
+  const [married, setMarriageStatus] = useState('');
+  const [workType, setWorkType] = useState('');
+  const [smoking, setSmokingStatus] = useState('');
+  const [residence, setResidence] = useState('');
+  const [heartDisease, setHeartDisease] = useState('');
+
+  const navigation = useNavigation();
 
   const handlePredict = async () => {
     const data = {
@@ -22,7 +24,7 @@ const StrokePrediction = () => {
       bmi: parseFloat(bmi),
       avg_glucose_level: parseFloat(glucoseLevel),
       hypertension: parseInt(hyperTension),
-      ever_married: String(Married),
+      ever_married: String(married),
       work_type: String(workType),
       smoking_status: String(smoking),
       residence_type: String(residence),
@@ -30,27 +32,29 @@ const StrokePrediction = () => {
     };
   
     try {
-      const response = await axios.post('http://localhost:5000/predict', data, {
+      const response = await axios.post('http://192.168.187.147:5000/predict', data, {
         headers: {
           'Content-Type': 'application/json',
         }
       });
-      let haveStroke = response.data.stroke;
-      
-      if(haveStroke == "True"){
-        setPrediction("Yes")
-      }else{
-        setPrediction("No")
-      }
+      const haveStroke = response.data.stroke;
+      const predictionResult = haveStroke === "True" ? "Yes" : "No";
+
+      // Navigate to the PredictionResult screen
+      navigation.navigate('PredictionResult', {
+        loading: true,
+        prediction: predictionResult,
+      });
+
     } catch (error) {
-      Alert.alert('Error', 'Failed to make prediction');
+      console.error('Error fetching prediction:', error);
+      Alert.alert('Error', 'Something went wrong. Please try again later.');
     }
   };
-  
 
   return (
-    <View style={styles.container}>
-       <Text style={styles.heading}>Enter your details for prediction</Text>
+    <ScrollView contentContainerStyle={styles.container}>
+      <Text style={styles.heading}>Enter Your Details for Stroke Prediction</Text>
       <TextInput
         style={styles.input}
         placeholder="Age"
@@ -95,7 +99,7 @@ const StrokePrediction = () => {
       <TextInput
         style={styles.input}
         placeholder="Married? (Yes/No)"
-        value={Married}
+        value={married}
         onChangeText={setMarriageStatus}
       />
       <TextInput
@@ -117,8 +121,7 @@ const StrokePrediction = () => {
         onChangeText={setResidence}
       />
       <Button title="Predict" onPress={handlePredict} />
-      {<Text>Have Stroke: {prediction}</Text>}
-    </View>
+    </ScrollView>
   );
 };
 
@@ -141,7 +144,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     marginBottom: 10,
     paddingLeft: 10,
-  }
-})
+  },
+});
 
 export default StrokePrediction;

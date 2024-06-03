@@ -10,7 +10,7 @@ import MealsDetails from "./mealsDetails";
 
 const stack = createNativeStackNavigator();
 
-const MealsNavigator = () =>{
+const MealsNavigator = () => {
     return(
         <GestureHandlerRootView style={{flex: 1}}>
         <NavigationContainer independent={true}>

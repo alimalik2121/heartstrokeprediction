@@ -1,10 +1,11 @@
+import os
 from flask import Flask, request, jsonify
 from heartDisease import HeartDiseaseModel
 from model import db, UserCredentials
 
 app = Flask(__name__)
 
-# Load the Flask app configuration with the database URI
+# Loading the Flask app configuration with the database URI
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///heartstrokeprediction.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # Disable SQLAlchemy event tracking
 db.init_app(app)
@@ -67,9 +68,12 @@ def predict_heart_disease():
     model = HeartDiseaseModel()
     df = model.make_dataframe(ready_data)
 
-    stroke = model.predict(df)
+    stroke_prob = model.predict(df)[0]
+    stroke = "Yes" if stroke_prob > 0.5 else "No"
 
-    return {"stroke": str(stroke)}
-    
+    return jsonify({
+        "stroke": stroke
+    })
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
